@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+    - name: Deploy to Elastic Beanstalk
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'us-east-1'  # Remplacez par votre région AWS
+        EB_ENV: 'mon-environnement'  # Remplacez par votre environnement Elastic Beanstalk
+      run: |
+        zip -r my-app.zip .
+        aws elasticbeanstalk create-application-version --application-name "mon-app" --version-label "v${{ github.run_number }}" --source-bundle S3Bucket=my-bucket,S3Key=my-app.zip
+        aws elasticbeanstalk update-environment --environment-name $EB_ENV --version-label "v${{ github.run_number }}"
