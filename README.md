@@ -23,11 +23,14 @@ Ce projet implémente un pipeline CI/CD pour déployer automatiquement une appli
 /mon-projet
   ├── .github/
   │   └── workflows/
-  │       └── ci-cd.yml  # Fichier de configuration pour GitHub Actions
-  ├── app/
-  │   └── ...            # Code source de l'application Node.js
-  ├── Dockerfile         # Optionnel, pour déploiement avec Docker
-  └── README.md          # Ce fichier
+  │       └── ci-cd.yml  # Fichier de configuration GitHub Actions
+  ├── index.js           # Fichier principal Node.js
+  ├── Dockerfile         # Dockerfile pour conteneurisation (optionnel)
+  ├── package.json       # Fichier de configuration des dépendances
+  ├── package-lock.json  # Verrouillage des versions des dépendances
+  ├── node_modules/      # Répertoire des dépendances (ignoré par Git)
+  └── .gitignore         # Fichier pour ignorer node_modules et .env
+
 ```
 
 ## 🏗️ Prérequis
