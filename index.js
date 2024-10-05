@@ -1,28 +1,16 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Middleware pour lire les JSON
-app.use(express.json());
-app.use(express.static('public')); // Pour servir les fichiers statiques
+// Servir les fichiers statiques (HTML, CSS, images)
+app.use(express.static('public'));
 
-// Route GET
+// Route principale
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + 'index.html');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Route POST
-app.post('/data', (req, res) => {
-  const data = req.body;
-  res.json({
-    message: 'Données reçues avec succès',
-    data: data
-  });
-});
-
-// Lancer le serveur
 app.listen(PORT, () => {
-  console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
+    console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
 });
-
-
