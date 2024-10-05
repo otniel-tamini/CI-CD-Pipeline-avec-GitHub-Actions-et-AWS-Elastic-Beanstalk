@@ -8,7 +8,7 @@ app.use(express.static('public')); // Pour servir les fichiers statiques
 
 // Route GET
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + 'index.html');
 });
 
 // Route POST
