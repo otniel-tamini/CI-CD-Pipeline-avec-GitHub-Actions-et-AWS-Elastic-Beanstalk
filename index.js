@@ -4,10 +4,11 @@ const PORT = 3000;
 
 // Middleware pour lire les JSON
 app.use(express.json());
+app.use(express.static('public')); // Pour servir les fichiers statiques
 
 // Route GET
 app.get('/', (req, res) => {
-  res.send('Bienvenue dans mon API Node.js');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // Route POST
@@ -23,4 +24,5 @@ app.post('/data', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
 });
+
 
