@@ -12,5 +12,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Ton Serveur en cours d'exécution sur le port ${PORT}`);
+    console.log(` Serveur node:js en cours d'exécution sur le port ${PORT}`);
 });
